@@ -1,6 +1,5 @@
 const seq = require('../database');
 const uniqid = require('uniqid');
-const validator = require('validator');
 
 module.exports.search = async (req, res) => {
     try {
@@ -14,21 +13,29 @@ module.exports.search = async (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-    const { title, description, level } = req.body;
+    const { title, description, category, level, min/*, geoX, geoY*/ } = req.body;
 
-    if (typeof title !== 'string' || !validator.isLength(title, { min: 6, max: 256 }))
+    if (typeof title !== 'string' || title.length < 6 || title.length > 128)
         return res.status(400).json({ message: 'Invalid title.' });
 
-    if (typeof description !== 'string' || !validator.isLength(description, { min: 6 }))
+    if (typeof description !== 'string' || description.length > 8192)
         return res.status(400).json({ message: 'Invalid description.' });
+
+    if (typeof category !== 'string' || category.length < 3 || category.length > 32)
+        return res.status(400).json({ message: 'Invalid category.' });
 
     if (typeof level !== 'number' || level < 1 || level > 5 || level !== Math.floor(level))
         return res.status(400).json({ message: 'Invalid level.' });
 
+    if (typeof min !== 'number' || min < 0 || min > 3 || min !== Math.floor(min))
+        return res.status(400).json({ message: 'Invalid min.' });
+
+    // TODO: add geoX and geoY validation
+
     try {
         const id = uniqid();
         const creatorId = req.user.id;
-        const task = await seq.models.Task.create({ id, creatorId, title, description, level });
+        const task = await seq.models.Task.create({ id, creatorId, title, description, category, level, min/*, geoX, geoY*/ });
         return res.json(task);
     }
     catch (e) {
@@ -51,22 +58,34 @@ module.exports.read = async (req, res) => {
 };
 
 module.exports.update = async (req, res) => {
-    const { id, title, description, level } = req.body;
+    const { title, description, category, level, min/*, geoX, geoY*/ } = req.body;
 
-    if (typeof title !== 'string' || !validator.isLength(title, { min: 6, max: 256 }))
+    if (typeof title !== 'string' || title.length < 6 || title.length > 128)
         return res.status(400).json({ message: 'Invalid title.' });
 
-    if (typeof description !== 'string' || !validator.isLength(description, { min: 6 }))
+    if (typeof description !== 'string' || description.length > 8192)
         return res.status(400).json({ message: 'Invalid description.' });
+
+    if (typeof category !== 'string' || category.length < 3 || category.length > 32)
+        return res.status(400).json({ message: 'Invalid category.' });
 
     if (typeof level !== 'number' || level < 1 || level > 5 || level !== Math.floor(level))
         return res.status(400).json({ message: 'Invalid level.' });
+
+    if (typeof min !== 'number' || min < 0 || min > 3 || min !== Math.floor(min))
+        return res.status(400).json({ message: 'Invalid min.' });
+
+    // TODO: add geoX and geoY validation
 
     try {
         const task = await seq.models.Task.findOne({ where: { id } });
         task.title = title;
         task.description = description;
+        task.category = category;
         task.level = level;
+        task.min = min;
+        /*task.geoX = geoX;
+        task.geoY = geoY;*/
         await task.save();
         return res.json(task);
     }

@@ -10,7 +10,7 @@ module.exports.token = async (req, res) => {
     if (typeof email !== 'string' || !validator.isEmail(email))
         return res.status(400).json({ message: 'Invalid email.' });
 
-    if (typeof password !== 'string' && !validator.isLength(password, { min: 8 }))
+    if (typeof password !== 'string' || password.length < 8 || password.length > 128)
         return res.status(400).json({ message: 'Invalid password.' });
 
     try {
@@ -35,13 +35,13 @@ module.exports.token = async (req, res) => {
 module.exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
-    if (typeof name !== 'string' || !validator.isLength(name, { min: 6, max: 32 }))
+    if (typeof name !== 'string' || name.length > 32 || name.length < 4)
         return res.status(400).json({ message: 'Invalid name.' });
 
     if (typeof email !== 'string' || !validator.isEmail(email))
         return res.status(400).json({ message: 'Invalid email.' });
 
-    if (typeof password !== 'string' && !validator.isLength(password, { min: 8 }))
+    if (typeof password !== 'string' || password.length < 8 || password.length > 128)
         return res.status(400).json({ message: 'Invalid password.' });
 
     try {
