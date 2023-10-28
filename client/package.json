@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "dobra-fala",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,7 +12,9 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "nuxt": "^3.8.0",
+    "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.3.7",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.3.23"
   }
 }
