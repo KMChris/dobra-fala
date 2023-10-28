@@ -7,6 +7,7 @@ const sequelize = new Sequelize({
 
 const models = [
     require('./models/user'),
+    require('./models/task')
 ];
 
 for (const model of models)

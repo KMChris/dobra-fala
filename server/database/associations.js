@@ -1,5 +1,7 @@
 module.exports = (sequelize) => {
-    // const { instrument, orchestra } = sequelize.models;
-    // orchestra.hasMany(instrument);
-    // instrument.belongsTo(orchestra);
+
+    const { User, Task } = sequelize.models;
+
+    User.hasMany(Task, { foreignKey: 'creatorId' });
+    Task.belongsTo(User, { foreignKey: 'creatorId' });
 };
