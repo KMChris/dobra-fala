@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.all('*', (req, res, next) => {
-    res.sendStatus(418);
+const seq = require('./database');
+
+router.all('*', async (req, res) => {
+    const user = await seq.models.User.findOne({name: 'XD'})
+    res.send("XD" + user);
 });
 
 module.exports = router;
