@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>Register</h1>
-    <form action="/login" method="post">
+    <h1>Stwórz konto</h1>
+    <form action="/register" method="post">
       <v-text-field label="Login" name="login" type="text"></v-text-field>
       <v-text-field label="Email" name="email" type="email"></v-text-field>
       <v-text-field label="Hasło" name="password" type="password"></v-text-field>
       <v-text-field label="Powtórz hasło" name="password" type="password"></v-text-field>
-      <v-btn color="#2e8b57" type="submit">Zaloguj</v-btn>
+      <v-btn color="#2e8b57" type="submit">Stwórz konto</v-btn>
     </form>
   </div>
 </template>
