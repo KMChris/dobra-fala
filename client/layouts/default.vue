@@ -43,7 +43,9 @@
     </v-navigation-drawer>
 
     <v-main>
-      <slot/>
+      <div class="container">
+        <slot/>
+      </div>
     </v-main>
   </v-app>
 </template>
@@ -56,10 +58,6 @@
 </script>
 
 <style scoped>
-  .v-application {
-    background-color: #f5e7cd;
-  }
-
   a {
     text-decoration: none;
     color: inherit;
@@ -72,5 +70,9 @@
 
   .v-spacer {
     flex-grow: 1;
+  }
+
+  .container {
+    padding: 20px 20%;
   }
 </style>
