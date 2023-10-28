@@ -22,13 +22,21 @@
         <v-list-item href="/zgubiono" prepend-icon="mdi-help" title="Zgubiono" height="50px"></v-list-item>
         <v-list-item href="/opieka" prepend-icon="mdi-paw" title="Opieka" height="50px"></v-list-item>
         <v-list-item href="/wypozyczalnia" prepend-icon="mdi-handshake" title="Wypożyczalnia" height="50px"></v-list-item>
-        <v-list-group value="rozne">
+        <v-list-group value="rozne" @click="open = (open[0] === 'rozne') ? [] : ['rozne']">
           <template v-slot:activator="{ props }">
             <v-list-item prepend-icon="mdi-offer" title="Różne" height="50px"></v-list-item>
           </template>
           <v-list-item href="/rozne" title="Różne"></v-list-item>
           <v-list-item href="/rozne" title="Różne"></v-list-item>
           <v-list-item href="/rozne" title="Różne"></v-list-item>
+        </v-list-group>
+        <v-list-group value="bonjour" @click="open = (open[0] === 'bonjour') ? [] : ['bonjour']">
+          <template v-slot:activator="{ props }">
+            <v-list-item prepend-icon="mdi-offer" title="Bonjour" height="50px"></v-list-item>
+          </template>
+          <v-list-item href="/bonjour" title="Bonjour"></v-list-item>
+          <v-list-item href="/bonjour" title="Bonjour"></v-list-item>
+          <v-list-item href="/bonjour" title="Bonjour"></v-list-item>
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
@@ -43,7 +51,7 @@
   import { ref } from 'vue'
 
   const drawer = ref(false)
-  const open = ref(['rozne'])
+  const open = ref([])
 </script>
 
 <style scoped>
