@@ -29,7 +29,7 @@
           <v-list-item href="/roslina" title="Roślina"></v-list-item>
           <v-list-item href="/spotkanie" title="Spotkanie"></v-list-item>
         </v-list-group>
-        <v-list-item href="/wypozyczalnia" prepend-icon="mdi-handshake" title="Wypożyczalnia" height="50px"></v-list-item>
+        <v-list-item href="/wypozyczanie" prepend-icon="mdi-handshake" title="Wypożyczanie" height="50px"></v-list-item>
         <v-list-group value="uslugi" @click="open = (open[0] === 'uslugi') ? [] : ['uslugi']">
           <template v-slot:activator="{ props }">
             <v-list-item prepend-icon="mdi-offer" title="Usługi" height="50px"></v-list-item>
