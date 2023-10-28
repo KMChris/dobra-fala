@@ -20,4 +20,24 @@ router.post('/auth/register', auth.register);
 
 
 
+/*** TASKS  ***/
+const tasks = require('./controllers/tasks');
+
+/* {} */
+router.post('/tasks/search', reject, tasks.search);
+
+/* {title, description, level} */
+router.post('/tasks/create', reject, tasks.create);
+
+/* {id} */
+router.post('/tasks/read', reject, tasks.read);
+
+/* {id, title, description, level} */
+router.post('/tasks/update', reject, tasks.update);
+
+/* {id} */
+router.post('/tasks/delete', reject, tasks.delete);
+
+
+
 module.exports = router;

@@ -12,8 +12,8 @@ async function init() {
 
     app.use(express.json());
 
-    const auth = require('./controllers/auth');
-    app.use('/auth', auth);
+    const auth = require('./middlewares/auth');
+    app.use(auth);
 
     const routes = require('./routes');
     app.use(routes);

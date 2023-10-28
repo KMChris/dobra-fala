@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const seq = require('../database');
+const uniqid = require('uniqid');
 const validator = require('validator');
 
 module.exports.token = async (req, res) => {
@@ -14,6 +15,7 @@ module.exports.token = async (req, res) => {
 
     try {
         const user = await seq.models.User.findOne({ where: { email } });
+
         if (!user)
             return res.status(400).json({ message: 'Invalid email or password.' });
 
@@ -21,7 +23,7 @@ module.exports.token = async (req, res) => {
         if (!match)
             return res.status(400).json({ message: 'Invalid email or password.' });
 
-        const token = jwt.sign({ email: user.email }, 'NALEŚNIKI', { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id, name: user.name, email: user.email }, 'NALEŚNIKI', { expiresIn: '1d' });
 
         return res.json({ token });
     } catch (e) {
@@ -33,7 +35,7 @@ module.exports.token = async (req, res) => {
 module.exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
-    if (typeof name !== 'string' || !validator.isLength(name, { min: 3, max: 32 }))
+    if (typeof name !== 'string' || !validator.isLength(name, { min: 6, max: 32 }))
         return res.status(400).json({ message: 'Invalid name.' });
 
     if (typeof email !== 'string' || !validator.isEmail(email))
@@ -44,9 +46,9 @@ module.exports.register = async (req, res) => {
 
     try {
         const hash = await bcrypt.hash(password, 10);
-
-        const user = await seq.models.User.create({ name, email, password: hash });
-        return res.json(user);
+        const id = uniqid();
+        const user = await seq.models.User.create({ id, name, email, password: hash });
+        return res.json({ id: user.id, name: user.name, email: user.email });
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: 'Something went wrong.' });
