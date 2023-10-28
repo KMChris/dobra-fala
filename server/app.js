@@ -10,6 +10,9 @@ async function init() {
     await sequelize.sync({ force: true });
     console.log('Synced database.');
 
+    const cors = require('cors');
+    app.use(cors())
+
     app.use(express.json());
 
     const auth = require('./middlewares/auth');
@@ -18,8 +21,8 @@ async function init() {
     const routes = require('./routes');
     app.use(routes);
 
-    app.listen(3000, () => {
-        console.log('listening on 3000');
+    app.listen(4000, () => {
+        console.log('listening on 4000');
     });
 }
 

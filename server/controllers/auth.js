@@ -35,6 +35,8 @@ module.exports.token = async (req, res) => {
 module.exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
+console.log(req.body)
+
     if (typeof name !== 'string' || name.length > 32 || name.length < 4)
         return res.status(400).json({ message: 'Invalid name.' });
 
