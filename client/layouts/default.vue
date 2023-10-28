@@ -20,23 +20,24 @@
         <v-list-item href="/dodaj" prepend-icon="mdi-plus" title="Dodaj ofertę" height="50px"></v-list-item>
         <v-list-item href="/znaleziono" prepend-icon="mdi-magnify" title="Znaleziono" height="50px"></v-list-item>
         <v-list-item href="/zgubiono" prepend-icon="mdi-help" title="Zgubiono" height="50px"></v-list-item>
-        <v-list-item href="/opieka" prepend-icon="mdi-paw" title="Opieka" height="50px"></v-list-item>
-        <v-list-item href="/wypozyczalnia" prepend-icon="mdi-handshake" title="Wypożyczalnia" height="50px"></v-list-item>
-        <v-list-group value="rozne" @click="open = (open[0] === 'rozne') ? [] : ['rozne']">
+        <v-list-group href="/opieka" prepend-icon="mdi-paw" title="Opieka" height="50px"></v-list-group>
+        <v-list-group value="opieka" @click="open = (open[0] === 'opieka') ? [] : ['opieka']">
           <template v-slot:activator="{ props }">
-            <v-list-item prepend-icon="mdi-offer" title="Różne" height="50px"></v-list-item>
+            <v-list-item prepend-icon="mdi-emoticon-excited-outline" title="Opieka" height="50px"></v-list-item>
           </template>
-          <v-list-item href="/rozne" title="Różne"></v-list-item>
-          <v-list-item href="/rozne" title="Różne"></v-list-item>
-          <v-list-item href="/rozne" title="Różne"></v-list-item>
+          <v-list-item href="/zwierze" title="Zwierze"></v-list-item>
+          <v-list-item href="/roslina" title="Roślina"></v-list-item>
+          <v-list-item href="/spotkanie" title="Spotkanie"></v-list-item>
         </v-list-group>
-        <v-list-group value="bonjour" @click="open = (open[0] === 'bonjour') ? [] : ['bonjour']">
+        <v-list-item href="/wypozyczalnia" prepend-icon="mdi-handshake" title="Wypożyczalnia" height="50px"></v-list-item>
+        <v-list-group value="uslugi" @click="open = (open[0] === 'uslugi') ? [] : ['uslugi']">
           <template v-slot:activator="{ props }">
-            <v-list-item prepend-icon="mdi-offer" title="Bonjour" height="50px"></v-list-item>
+            <v-list-item prepend-icon="mdi-offer" title="Usługi" height="50px"></v-list-item>
           </template>
-          <v-list-item href="/bonjour" title="Bonjour"></v-list-item>
-          <v-list-item href="/bonjour" title="Bonjour"></v-list-item>
-          <v-list-item href="/bonjour" title="Bonjour"></v-list-item>
+          <v-list-item href="/majsterkowanie" title="Majsterkowanie"></v-list-item>
+          <v-list-item href="/sprzatanie" title="Sprzątanie"></v-list-item>
+          <v-list-item href="/gotowanie" title="Gotowanie"></v-list-item>
+          <v-list-item href="/zakupy" title="Zakupy"></v-list-item>
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
