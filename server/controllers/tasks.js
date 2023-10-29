@@ -4,10 +4,7 @@ const uniqid = require('uniqid');
 module.exports.search = async (req, res) => {
     try {
         const tasks = await seq.models.Task.findAll({
-            raw: true, include: [
-                { model: seq.models.User, as: 'creator' },
-                { model: seq.models.User, as: 'completedBy' },
-            ]
+            raw: true, include: [{ model: seq.models.User, as: 'creator' }]
         });
         return res.json(tasks);
     }

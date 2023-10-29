@@ -6,17 +6,16 @@
         <div style="display: flex;">
           {{ offer.title }}
           <v-spacer></v-spacer>
-          <p style="color: #2e8b57; font-size: 18px;">{{ offer.status }}</p>
+          <p style="color: #2e8b57; font-size: 18px;">{{ offer.completedBy == null ? 'OTWARTE' : 'ZAMKNIĘTE' }}</p>
         </div>
       </v-card-title>
       <v-card-text>
         <div class="card">
-          {{ offer.content }}
+          {{ offer.description }}
         </div>
-        Dodane przez {{ offer.author }} w {{ offer.date }}
+        Dodane przez {{ offer['creator.name'] }} w dniu {{ offer.createdAt.slice(0, 10) }}
         <div style="display: flex;">
-          Liczba aplikujących: {{ offer.applicants }}
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-btn :disabled="disabled[i]" color="#2e8b57" @click="disabled[i] = true">Znalazłem!</v-btn>
         </div>
       </v-card-text>
@@ -40,7 +39,7 @@ onMounted(async () => {
     const data = await response.json();
     if (!response.ok) throw new Error(data.message);
     offers.value = data;
-    disabled.value = new Array(data.length).fill(false);
+    console.log(data);
   } catch (error) {
     console.log(error);
     window.alert(error);

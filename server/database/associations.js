@@ -11,8 +11,8 @@ module.exports = (sequelize) => {
     User.hasMany(Opinion, { foreignKey: 'toUserId' });
     Opinion.belongsTo(User, { foreignKey: 'toUserId' });
 
-    User.hasMany(Task, { foreignKey: 'creatorId' });
-    Task.belongsTo(User, { foreignKey: 'creatorId' });
+    User.hasMany(Task, { foreignKey: 'creatorId', as: 'task' });
+    Task.belongsTo(User, { foreignKey: 'creatorId', as: 'creator' });
 
     User.hasMany(Task, { foreignKey: 'completedBy' });
     Task.belongsTo(User, { foreignKey: 'completedBy' });
