@@ -1,12 +1,18 @@
 <template>
   <v-img max-height="150px" src="/main.png" alt="main"></v-img>
   <h1>Czym jest Dobra Fala?</h1>
-  <v-img style="float: left;" max-height="150px" src="/illustrations/nei.png" alt="neighbors"></v-img>
-  <p>Dobra Fala to więcej niż zwykła strona – to społeczność ludzi z otwartymi sercami, gotowymi wyciągnąć pomocną dłoń w stronę tych, którzy jej potrzebują.</p>
-  <p>Pozwala Ci szybko skorzystać z pomocy Twoich sąsiadów.</p>
-  <v-img style="float: left;" max-height="150px" src="/illustrations/map.png" alt="map"></v-img>
-  <p>Celem jest znalezienie lub zaoferowanie pomocy w Twojej okolicy.</p>
-  <v-img style="float: left;" max-height="150px" src="/illustrations/anno.png" alt="announcements"></v-img>
+  <div class="flex">
+    <p>Dobra Fala to więcej niż zwykła strona – to społeczność ludzi z otwartymi sercami, gotowymi wyciągnąć pomocną dłoń w stronę tych, którzy jej potrzebują.</p>
+    <img width="200px" src="/illustrations/nei.png" alt="neighbors"/>
+  </div>
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <img width="200px" src="/illustrations/map.png" alt="map"/>
+    <p>Pozwala Ci szybko skorzystać z pomocy Twoich sąsiadów.</p>
+  </div>
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    Celem jest znalezienie lub zaoferowanie pomocy w Twojej okolicy.
+    <img width="200px" src="/illustrations/anno.png" alt="announcements"/>
+  </div>
   <p>Chętne osoby z Twojego osiedla mogą pomóc Ci w pracach domowych zaopiekować się Twoim pupilem lub roślinką, albo po prostu spotkać się z Tobą.</p>
   <div style="display: flex;">
   <v-img style="float: left;" max-height="150px" src="/illustrations/pet.png" alt="pet"></v-img>
@@ -47,5 +53,10 @@ a {
 a:hover {
   color: #2e8b57;
   text-decoration: underline;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
 }
 </style>

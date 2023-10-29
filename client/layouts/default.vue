@@ -5,11 +5,11 @@
       <v-toolbar-title>
         <v-spacer></v-spacer>
         <div class="title">
-<!--          <a style="flex-grow: 0; padding-right: 10px;" href="/">Dobra Fala</a>-->
           <a href="/"><v-img style="flex-grow: 0;" width="60px" height="60px" src="/favicon.ico"/></a>
         </div>
       </v-toolbar-title>
-      <v-btn icon="mdi-account-circle" href="/profil"></v-btn>
+      <v-btn icon="mdi-account-circle" :href="token!=null ? '/profil' : '/login'"></v-btn>
+      <v-btn icon="mdi-logout" v-if="token!=null" @click="logout()"></v-btn>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -54,6 +54,14 @@
 
   const drawer = ref(false)
   const open = ref([])
+
+  const token = ref(null);
+  onMounted(() => { token.value = localStorage.getItem('token') });
+
+  function logout() {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+  }
 </script>
 
 <style scoped>
