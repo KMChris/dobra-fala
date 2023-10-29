@@ -37,5 +37,7 @@ module.exports = (sequelize) => {
             type: DataTypes.FLOAT,
             allowNull: true,
         },
+    }, {
+        attributes: { exclude: ['password', 'phone', 'address', 'geoX', 'geoY'] },
     });
 };
