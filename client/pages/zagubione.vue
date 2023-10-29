@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Zgubiono</h1>
+    <h1>Zagubione</h1>
     <v-card v-for="(offer, i)  in offers">
       <v-card-title>
         <div style="display: flex;">

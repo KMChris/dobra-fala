@@ -16,8 +16,8 @@ module.exports.search = async (req, res) => {
             user.score += task.level;
         });
 
-
-        return res.json(users);
+        const sortedUsers = users.sort((a, b) => b.score - a.score);
+        return res.json(sortedUsers);
     }
     catch (e) {
         console.log(e);
