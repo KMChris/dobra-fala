@@ -12,7 +12,8 @@
       <v-btn v-if="edit" prepend-icon="mdi-content-save" color="#2e8b57" @click="edit = !edit">Zapisz</v-btn>
       <v-btn v-else prepend-icon="mdi-human-edit" color="#2e8b57" @click="edit = !edit">Edytuj profil</v-btn>
     </div>
-    <p class="opis">Lorem ipsum dolor sit amet.</p>
+    <v-textarea v-if="edit" v-model="user.description" label="Opis" style="max-width: 400px;" variant="outlined"></v-textarea>
+    <p v-else class="opis">{{ user.description }}</p>
     <h2>Nagrody</h2>
     <div class="awards">
       <div class="awards-container">
@@ -48,18 +49,7 @@
 const user = ref({});
 const edit = ref(false);
 const rating = ref(2.5);
-const comments = ref([
-  {
-    title: 'Majsterkowanie',
-    content: 'Lorem ipsum dolor sit amet',
-    rating: 3,
-  },
-  {
-    title: 'Sprzątanie',
-    content: 'Lorem ipsum dolor sit amet',
-    rating: 2
-  },
-]); // TODO get comments from server
+const comments = ref([]);
 
 const token = ref('');
 onMounted(async () => {

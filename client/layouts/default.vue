@@ -37,9 +37,9 @@
           <v-list-item href="/uslugi/gotowanie" title="Gotowanie"></v-list-item>
           <v-list-item href="/uslugi/zakupy" title="Zakupy"></v-list-item>
         </v-list-group>
+        <v-list-item href="/ranking" prepend-icon="mdi-trophy" title="Ranking" height="50px"></v-list-item>
       </v-list>
     </v-navigation-drawer>
-
     <v-main>
       <div class="container">
         <slot/>
