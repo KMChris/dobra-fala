@@ -6,6 +6,7 @@
       <v-text-field label="Hasło" name="password" type="password" v-model="password"></v-text-field>
       <v-btn color="#2e8b57" @click="login">Zaloguj</v-btn>
     </form>
+    <p>Nie masz konta? <a href="/register">Zarejestruj się</a></p>
   </div>
 </template>
 
@@ -52,5 +53,19 @@ form {
 
 .v-text-field {
   width: 300px;
+}
+
+a {
+  color: #2e8b57;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  text-align: center;
+  margin-top: 15px;
 }
 </style>

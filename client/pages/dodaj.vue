@@ -14,21 +14,27 @@
 import { ref } from 'vue'
 
 const kategorie = ref([
-  'Kategoria 1',
-  'Kategoria 2',
-  'Kategoria 3',
+  'Zagubione',
+  'Opieka nad zwierzęciem',
+  'Opieka nad rośliną',
+  'Spotkanie',
+  'Wypożyczanie',
+  'Majsterkowanie',
+  'Sprzątanie',
+  'Gotowanie',
+  'Zakupy'
 ])
 
 const oceny = ref([
   'Brak',
-  'Ocena 2',
-  'Ocena 3',
+  'Ocena 2.0+',
+  'Ocena 2.5+',
 ])
 
 const minMap = new Map([
   ['Brak', 0],
-  ['Ocena 2', 1],
-  ['Ocena 3', 2],
+  ['Ocena 2.0+', 1],
+  ['Ocena 2.5+', 2],
 ]);
 
 const title = ref('');
