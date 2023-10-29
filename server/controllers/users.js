@@ -13,10 +13,13 @@ module.exports.search = async (req, res) => {
 };
 
 module.exports.read = async (req, res) => {
-    const { userId } = req.body;
+    let { userId } = req.body;
 
-    if (typeof userId !== 'string' || userId.length > 18)
+    if (userId !== null && (typeof userId !== 'string' || userId.length > 18))
         return res.status(400).json({ message: 'Invalid userId.' });
+
+    if (userId === null)
+        userId = req.user.userId;
 
     try {
         const user = await seq.models.User.findOne({ where: { userId } });

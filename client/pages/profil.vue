@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex">
-      <h1 class="name">Labelka3</h1>
+      <h1 class="name">{{ user?.name }}</h1>
       <img class="avatar" height="168" src="/profile.png" alt="avatar">
     </div>
     <div class="flex">
@@ -43,7 +43,9 @@
 </template>
 
 <script setup lang="ts">
-const rating = ref(2.5)
+const user = ref({});
+
+const rating = ref(2.5);
 const comments = ref([
   {
     title: 'Majsterkowanie',
@@ -55,7 +57,25 @@ const comments = ref([
     content: 'Lorem ipsum dolor sit amet',
     rating: 2
   },
-]) // TODO get comments from server
+]); // TODO get comments from server
+
+const token = ref('');
+onMounted(async () => {
+  token.value = localStorage.getItem('token');
+  try {
+    const response = await fetch('http://localhost:4000/users/read', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${token.value}` },
+      body: JSON.stringify({userId: null})
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
+    user.value = data;
+  } catch (error) {
+    console.log(error);
+    window.alert(error);
+  }
+});
 </script>
 
 <style scoped>

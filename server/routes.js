@@ -40,7 +40,7 @@ router.post('/opinions/delete', reject, opinions.delete);
 /*** TASKS  ***/
 const tasks = require('./controllers/tasks');
 
-/* {taskId} */
+/* {} */
 router.post('/tasks/search', reject, tasks.search);
 
 /* {title, description, level} */
@@ -61,16 +61,16 @@ router.post('/tasks/delete', reject, tasks.delete);
 const users = require('./controllers/users');
 
 /* {} */
-router.post('/user/search', reject, users.search);
+router.post('/users/search', reject, users.search);
 
 /* {userId} */
-router.post('/user/read', reject, users.read);
+router.post('/users/read', reject, users.read);
 
 /* {name, email, password, phone, address, geoX, geoY} */
-router.post('/user/update', reject, users.update);
+router.post('/users/update', reject, users.update);
 
 /* {} */
-router.post('/user/delete', reject, users.delete);
+router.post('/users/delete', reject, users.delete);
 
 
 
