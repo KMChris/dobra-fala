@@ -32,8 +32,7 @@ onMounted(async () => {
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.message);
-    users.value = data;
-    console.log(data);
+    users.value = data.sort((a, b) => b.score - a.score);
   } catch (error) {
     console.log(error);
     window.alert(error);

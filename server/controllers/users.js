@@ -16,7 +16,6 @@ module.exports.search = async (req, res) => {
             user.score += task.level;
         });
 
-
         return res.json(users);
     }
     catch (e) {
@@ -36,7 +35,10 @@ module.exports.read = async (req, res) => {
 
     try {
         const user = await seq.models.User.findOne({ where: { userId } });
-        return res.json(user);
+        const opinions = await seq.models.Opinion.findAll({ where: { toUserId: userId }, raw: true });
+        const tasks = await seq.models.Task.findAll({ where: { completedBy: userId }, raw: true });
+
+        return res.json({user, opinions, tasks});
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: 'Something went wrong.' });

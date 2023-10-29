@@ -56,20 +56,20 @@ async function foo() {
 
     for (let i = 0; i < tasks.length / 2; i++) {
         await axios.post(URL + '/tickets/create', { taskId: tasks[i].taskId, comment: 'XDXDXDXD' }, { headers: { 'Authorization': 'Bearer ' + users[(i + 1) % 5].token } })
-        await axios.post(URL + '/tickets/done', { taskId: tasks[i].taskId, userId: users[(i + 1) % 5].data.userId }, { headers: { 'Authorization': 'Bearer ' + users[i % 5].token } })
+        await axios.post(URL + '/tickets/done', { taskId: tasks[i].taskId, userId: users[(i + 1) % 5].data.user.userId }, { headers: { 'Authorization': 'Bearer ' + users[i % 5].token } })
     }
 
     const opinions = [
-        { title: 'Opinion E', description: 'Opinion Q description', level: 1, toUserId: users[4].data.userId },
-        { title: 'Opinion R', description: 'Opinion W description', level: 2, toUserId: users[0].data.userId },
-        { title: 'Opinion T', description: 'Opinion E description', level: 3, toUserId: users[1].data.userId },
-        { title: 'Opinion Q', description: 'Opinion R description', level: 1, toUserId: users[2].data.userId },
-        { title: 'Opinion W', description: 'Opinion T description', level: 2, toUserId: users[3].data.userId },
-        { title: 'Opinion E2', description: 'Opinion Q2 desc', level: 3, toUserId: users[4].data.userId },
-        { title: 'Opinion R2', description: 'Opinion W2 desc', level: 1, toUserId: users[0].data.userId },
-        { title: 'Opinion T2', description: 'Opinion E2 desc', level: 2, toUserId: users[1].data.userId },
-        { title: 'Opinion Q2', description: 'Opinion R2 desc', level: 3, toUserId: users[2].data.userId },
-        { title: 'Opinion W2', description: 'Opinion T2 desc', level: 1, toUserId: users[3].data.userId },
+        { title: 'Opinion E', description: 'Opinion Q description', level: 1, toUserId: users[4].data.user.userId },
+        { title: 'Opinion R', description: 'Opinion W description', level: 2, toUserId: users[0].data.user.userId },
+        { title: 'Opinion T', description: 'Opinion E description', level: 3, toUserId: users[1].data.user.userId },
+        { title: 'Opinion Q', description: 'Opinion R description', level: 1, toUserId: users[2].data.user.userId },
+        { title: 'Opinion W', description: 'Opinion T description', level: 2, toUserId: users[3].data.user.userId },
+        { title: 'Opinion E2', description: 'Opinion Q2 desc', level: 3, toUserId: users[4].data.user.userId },
+        { title: 'Opinion R2', description: 'Opinion W2 desc', level: 1, toUserId: users[0].data.user.userId },
+        { title: 'Opinion T2', description: 'Opinion E2 desc', level: 2, toUserId: users[1].data.user.userId },
+        { title: 'Opinion Q2', description: 'Opinion R2 desc', level: 3, toUserId: users[2].data.user.userId },
+        { title: 'Opinion W2', description: 'Opinion T2 desc', level: 1, toUserId: users[3].data.user.userId },
     ];
 
     for (let i = 0; i < opinions.length; i++) {

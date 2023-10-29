@@ -1,19 +1,19 @@
 <template>
   <div>
     <div class="flex profile">
-      <v-text-field v-if="edit" v-model="user.name" label="Imię" style="max-width: 400px;" variant="outlined"></v-text-field>
-      <h1 v-else class="name">{{ user?.name }}</h1>
+      <v-text-field v-if="edit" v-model="user.user.name" label="Imię" style="max-width: 400px;" variant="outlined"></v-text-field>
+      <h1 v-else class="name">{{ user.user.name }}</h1>
       <img class="avatar" height="168" src="/profile.png" alt="avatar">
     </div>
     <div class="flex">
       <v-rating v-model="rating" half-increments readonly length="3"></v-rating>
-      2.5/3
+      {{ user.opinions.reduce((a, b) => a + b.level, 0) / user.opinions.length }} / 3
       <v-spacer></v-spacer>
       <v-btn v-if="edit" prepend-icon="mdi-content-save" color="#2e8b57" @click="edit = !edit">Zapisz</v-btn>
       <v-btn v-else prepend-icon="mdi-human-edit" color="#2e8b57" @click="edit = !edit">Edytuj profil</v-btn>
     </div>
-    <v-textarea v-if="edit" v-model="user.description" label="Opis" style="max-width: 400px;" variant="outlined"></v-textarea>
-    <p v-else class="opis">{{ user.description }}</p>
+    <v-textarea v-if="edit" v-model="user.user.description" label="Opis" style="max-width: 400px;" variant="outlined"></v-textarea>
+    <p v-else class="opis">{{ user.user.description }}</p>
     <h2>Nagrody</h2>
     <div class="awards">
       <div class="awards-container">
@@ -23,30 +23,30 @@
       </div>
     </div>
   </div>
-  <b style="color:#eaa760;">Liczba wykonanych zadań: 2</b>
-  <b style="color:#eaa760;">Najdłuższy streak: 2</b>
-  <b style="color:#eaa760;">Data dołączenia: 28.10.2023</b>
+  <b style="color:#eaa760;">Liczba wykonanych zadań: {{ user.tasks.length }}</b>
+  <b style="color:#eaa760;">Najdłuższy streak: {{ user.tasks.length }}</b>
+  <b style="color:#eaa760;">Data dołączenia: {{ user.user.createdAt.split('T')[0] }}</b>
   <h2>Komentarze</h2>
-  <v-card class="comment" v-for="comment in comments">
+  <v-card class="comment" v-for="comment in user.opinions">
     <v-card-title>
       <div style="display: flex;">
         {{ comment.title }}
         <v-spacer></v-spacer>
-        <v-rating v-model="comment.rating" size="27" color="#2e8b57" empty-color="#2e8b57"
+        <v-rating v-model="comment.level" size="27" color="#2e8b57" empty-color="#2e8b57"
                   length="3" readonly
         ></v-rating>
       </div>
     </v-card-title>
     <v-card-text>
       <div class="card">
-        {{ comment.content }}
+        {{ comment.description }}
       </div>
     </v-card-text>
   </v-card>
 </template>
 
 <script setup lang="ts">
-const user = ref({});
+const user = ref({user: {name: '', description: '', createdAt: '1111-11-11T11:11'}, tasks: [], opinions: []});
 const edit = ref(false);
 const rating = ref(2.5);
 const comments = ref([]);
