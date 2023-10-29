@@ -38,7 +38,7 @@ onMounted(async () => {
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.message);
-    offers.value = data;
+    offers.value = data.filter((offer: any) => offer.completedBy == null);
     console.log(data);
   } catch (error) {
     console.log(error);

@@ -49,26 +49,32 @@ async function foo() {
         { title: 'Task T4 5', description: 'Task T4 desc', category: 'Found', level: 5, min: 2, geoX: 0, geoY: 0 },
     ];
 
-    for (let i = 0; i < tasks.length; i++)
-        await axios.post(URL + '/tasks/create', tasks[i], { headers: { 'Authorization': 'Bearer ' + users[i % 5].token } })
+    for (let i = 0; i < tasks.length; i++) {
+        const request = await axios.post(URL + '/tasks/create', tasks[i], { headers: { 'Authorization': 'Bearer ' + users[i % 5].token } })
+        tasks[i].taskId = request.data.taskId;
+    }
+
+    for (let i = 0; i < tasks.length / 2; i++) {
+        await axios.post(URL + '/tickets/create', { taskId: tasks[i].taskId, comment: 'XDXDXDXD' }, { headers: { 'Authorization': 'Bearer ' + users[(i + 1) % 5].token } })
+        await axios.post(URL + '/tickets/done', { taskId: tasks[i].taskId, userId: users[(i + 1) % 5].data.userId }, { headers: { 'Authorization': 'Bearer ' + users[i % 5].token } })
+    }
 
     const opinions = [
-        { title: 'Opinion Q', description: 'Opinion Q description', level: 1, toUserId: users[1].data.userId },
-        { title: 'Opinion W', description: 'Opinion W description', level: 2, toUserId: users[2].data.userId },
-        { title: 'Opinion E', description: 'Opinion E description', level: 3, toUserId: users[3].data.userId },
-        { title: 'Opinion R', description: 'Opinion R description', level: 1, toUserId: users[4].data.userId },
-        { title: 'Opinion T', description: 'Opinion T description', level: 2, toUserId: users[0].data.userId },
-        { title: 'Opinion Q2', description: 'Opinion Q2 desc', level: 3, toUserId: users[2].data.userId },
-        { title: 'Opinion W2', description: 'Opinion W2 desc', level: 1, toUserId: users[3].data.userId },
-        { title: 'Opinion E2', description: 'Opinion E2 desc', level: 2, toUserId: users[4].data.userId },
-        { title: 'Opinion R2', description: 'Opinion R2 desc', level: 3, toUserId: users[0].data.userId },
-        { title: 'Opinion T2', description: 'Opinion T2 desc', level: 1, toUserId: users[1].data.userId },
+        { title: 'Opinion E', description: 'Opinion Q description', level: 1, toUserId: users[4].data.userId },
+        { title: 'Opinion R', description: 'Opinion W description', level: 2, toUserId: users[0].data.userId },
+        { title: 'Opinion T', description: 'Opinion E description', level: 3, toUserId: users[1].data.userId },
+        { title: 'Opinion Q', description: 'Opinion R description', level: 1, toUserId: users[2].data.userId },
+        { title: 'Opinion W', description: 'Opinion T description', level: 2, toUserId: users[3].data.userId },
+        { title: 'Opinion E2', description: 'Opinion Q2 desc', level: 3, toUserId: users[4].data.userId },
+        { title: 'Opinion R2', description: 'Opinion W2 desc', level: 1, toUserId: users[0].data.userId },
+        { title: 'Opinion T2', description: 'Opinion E2 desc', level: 2, toUserId: users[1].data.userId },
+        { title: 'Opinion Q2', description: 'Opinion R2 desc', level: 3, toUserId: users[2].data.userId },
+        { title: 'Opinion W2', description: 'Opinion T2 desc', level: 1, toUserId: users[3].data.userId },
     ];
 
-    for (let i = 0; i < users.length; i++)
-        await axios.post(URL + '/opinions/create', opinions[i], { headers: { 'Authorization': 'Bearer ' + users[i].token } })
-    for (let i = 0; i < users.length; i++)
-        await axios.post(URL + '/opinions/create', opinions[5 + i], { headers: { 'Authorization': 'Bearer ' + users[i].token } })
+    for (let i = 0; i < opinions.length; i++) {
+        await axios.post(URL + '/opinions/create', opinions[i], { headers: { 'Authorization': 'Bearer ' + users[i % 5].token } })
+    }
 }
 
 foo();
