@@ -20,7 +20,7 @@
         </div>
         <div style="display: flex;">
           <v-spacer></v-spacer>
-          <v-btn color="#2e8b57">Znalazłem!</v-btn>
+          <v-btn color="#2e8b57">Przyjmij</v-btn>
         </div>
       </v-card-text>
     </v-card>

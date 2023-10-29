@@ -1,17 +1,11 @@
 <template>
   <div>
-    <h1>Majsterkowanie</h1>
+    <h1>Gotowanie</h1>
     <v-card v-for="offer in offers">
       <v-card-title>
         <div style="display: flex;">
           {{ offer.title }}
           <v-spacer></v-spacer>
-          <v-rating v-model="offer.rating" size="27" color="#2e8b57" empty-color="#2e8b57"
-                    length="3" readonly
-                    empty-icon="mdi-circle-outline"
-                    half-icon="mdi-circle-half-full"
-                    full-icon="mdi-circle"
-          ></v-rating>
         </div>
       </v-card-title>
       <v-card-text>
@@ -20,7 +14,7 @@
         </div>
         <div style="display: flex;">
           <v-spacer></v-spacer>
-          <v-btn color="#2e8b57">Znalazłem!</v-btn>
+          <v-btn color="#2e8b57">Przyjmij</v-btn>
         </div>
       </v-card-text>
     </v-card>

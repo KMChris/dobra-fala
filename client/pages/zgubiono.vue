@@ -6,12 +6,6 @@
         <div style="display: flex;">
           {{ offer.title }}
           <v-spacer></v-spacer>
-          <v-rating v-model="offer.rating" size="27" color="#2e8b57" empty-color="#2e8b57"
-                    length="3" readonly
-                    empty-icon="mdi-circle-outline"
-                    half-icon="mdi-circle-half-full"
-                    full-icon="mdi-circle"
-          ></v-rating>
         </div>
       </v-card-title>
       <v-card-text>

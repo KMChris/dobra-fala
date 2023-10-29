@@ -1,14 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    <h1>Register</h1>
-    <form action="/login" method="post">
-      <v-text-field label="Login" name="login" type="text" v-model="name"></v-text-field>
-      <v-text-field label="Email" name="email" type="email" v-model="email"></v-text-field>
-      <v-text-field label="Hasło" name="password" type="password" v-model="password"></v-text-field>
-      <v-text-field label="Powtórz hasło" name="password" type="password"></v-text-field>
-      <v-btn color="#2e8b57" @click="register()">Zaloguj</v-btn>
-=======
     <h1>Stwórz konto</h1>
     <form action="/register" method="post">
       <v-text-field label="Login" name="login" type="text"></v-text-field>
@@ -16,7 +7,6 @@
       <v-text-field label="Hasło" name="password" type="password"></v-text-field>
       <v-text-field label="Powtórz hasło" name="password" type="password"></v-text-field>
       <v-btn color="#2e8b57" type="submit">Stwórz konto</v-btn>
->>>>>>> 44961ded6c1122967b261566fd1d0f35d0c421dc
     </form>
   </div>
 </template>

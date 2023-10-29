@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Zgubiono</h1>
+    <h1>Spotkanie</h1>
     <v-card v-for="offer in offers">
       <v-card-title>
         <div style="display: flex;">
@@ -20,7 +20,7 @@
         </div>
         <div style="display: flex;">
           <v-spacer></v-spacer>
-          <v-btn color="#2e8b57">Znalazłem!</v-btn>
+          <v-btn color="#2e8b57">Przyjmij</v-btn>
         </div>
       </v-card-text>
     </v-card>
