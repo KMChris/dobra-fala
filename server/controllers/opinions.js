@@ -17,6 +17,12 @@ module.exports.create = async (req, res) => {
 
     try {
         const fromUserId = req.user.userId;
+
+        const task = await seq.models.Task.findOne({ where: { creatorId: toUserId, completedBy: fromUserId } });
+
+        if (task === null)
+            return res.status(400).json({ message: 'You cannot give opinion to this user' });
+
         const opinion = await seq.models.Opinion.create({ title, description, level, fromUserId, toUserId });
         return res.status(200).json({ message: 'Opinion created' });
     } catch (e) {
@@ -32,7 +38,18 @@ module.exports.read = async (req, res) => {
         return res.status(400).json({ message: 'Invalid toUserId' });
 
     try {
-        const opinions = await seq.models.Opinion.findAll({ where: { toUserId } });
+        const opinions = await seq.models.Opinion.findAll({ where: { toUserId }, include: [{ model: seq.models.User, as: 'fromUser' }] });
+        return res.status(200).json({ message: 'Opinions read', opinions });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+module.exports.my = async (req, res) => {
+    try {
+        const fromUserId = req.user.userId;
+        const opinions = await seq.models.Opinion.findAll({ where: { fromUserId }, include: [{ model: seq.models.User, as: 'toUser' }] });
         return res.status(200).json({ message: 'Opinions read', opinions });
     } catch (e) {
         console.log(e);
@@ -57,6 +74,12 @@ module.exports.update = async (req, res) => {
 
     try {
         const fromUserId = req.user.userId;
+
+        const task = await seq.models.Task.findOne({ where: { creatorId: toUserId, completedBy: fromUserId } });
+
+        if (task === null)
+            return res.status(400).json({ message: 'You cannot give opinion to this user' });
+
         const opinion = await seq.models.Opinion.update({ title, description, level }, { where: { fromUserId, toUserId } });
         return res.json(opinion);
     } catch (e) {

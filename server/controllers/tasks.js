@@ -3,7 +3,12 @@ const uniqid = require('uniqid');
 
 module.exports.search = async (req, res) => {
     try {
-        const tasks = await seq.models.Task.findAll({ raw: true });
+        const tasks = await seq.models.Task.findAll({
+            raw: true, include: [
+                { model: seq.models.User, as: 'creator' },
+                { model: seq.models.User, as: 'completedBy' },
+            ]
+        });
         return res.json(tasks);
     }
     catch (e) {
@@ -56,7 +61,12 @@ module.exports.read = async (req, res) => {
         return res.status(400).json({ message: 'Invalid taskId.' });
 
     try {
-        const task = await seq.models.Task.findOne({ where: { taskId } });
+        const task = await seq.models.Task.findOne({
+            where: { taskId }, include: [
+                { model: seq.models.User, as: 'creator' },
+                { model: seq.models.User, as: 'completedBy' },
+            ]
+        });
         return res.json(task);
     }
     catch (e) {
@@ -94,6 +104,10 @@ module.exports.update = async (req, res) => {
 
     try {
         const task = await seq.models.Task.findOne({ where: { taskId } });
+
+        if (task.completedBy !== null)
+            return res.status(400).json({ message: 'This task is already taken.' });
+
         task.title = title;
         task.description = description;
         task.category = category;
@@ -108,7 +122,6 @@ module.exports.update = async (req, res) => {
         console.log(e);
         return res.status(500).json({ message: 'Something went wrong.' });
     }
-
 };
 
 
@@ -119,7 +132,13 @@ module.exports.delete = async (req, res) => {
         return res.status(400).json({ message: 'Invalid taskId.' });
 
     try {
-        const task = await seq.models.Task.destroy({ where: { taskId } });
+        const task = await seq.models.Task.findOne({ where: { taskId } });
+
+        if (task.completedBy !== null)
+            return res.status(400).json({ message: 'This task is already taken.' });
+
+
+        await seq.models.Task.destroy({ where: { taskId } });
         return res.json(task);
     } catch (e) {
         console.log(e);

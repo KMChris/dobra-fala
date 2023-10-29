@@ -29,6 +29,9 @@ router.post('/opinions/create', reject, opinions.create);
 /* {toUserId} */
 router.post('/opinions/read', reject, opinions.read);
 
+/* {} */
+router.post('/tasks/my', reject, opinions.my);
+
 /* {title, description, level, toUserId} */
 router.post('/opinions/update', reject, opinions.update);
 
@@ -46,14 +49,28 @@ router.post('/tasks/search', reject, tasks.search);
 /* {title, description, level} */
 router.post('/tasks/create', reject, tasks.create);
 
-/* {taskId} */
-router.post('/tasks/read', reject, tasks.read);
-
 /* {taskId, title, description, level} */
 router.post('/tasks/update', reject, tasks.update);
 
 /* {taskId} */
 router.post('/tasks/delete', reject, tasks.delete);
+
+
+
+/*** TICKETS ***/
+const tickets = require('./controllers/tickets');
+
+/* {taskId, comment} */
+router.post('/tickets/create', reject, tickets.create);
+
+/* {taskId} */
+router.post('/tickets/delete', reject, tickets.delete);
+
+/* {taskId} || {} */
+router.post('/tickets/read', reject, tickets.read);
+
+/* {taskId, userId} */
+router.post('/tickets/done', reject, tickets.done);
 
 
 

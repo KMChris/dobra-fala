@@ -1,6 +1,6 @@
 module.exports = (sequelize) => {
 
-    const { Achievement, Opinion, User, Task } = sequelize.models;
+    const { Achievement, Opinion, Task, Ticket, User } = sequelize.models;
 
     User.hasMany(Achievement, { foreignKey: 'userId' });
     Achievement.belongsTo(User, { foreignKey: 'userId' });
@@ -16,4 +16,10 @@ module.exports = (sequelize) => {
 
     User.hasMany(Task, { foreignKey: 'completedBy' });
     Task.belongsTo(User, { foreignKey: 'completedBy' });
+
+    User.hasMany(Ticket, { foreignKey: 'userId' });
+    Ticket.belongsTo(User, { foreignKey: 'userId' });
+
+    Task.hasMany(Ticket, { foreignKey: 'taskId' });
+    Ticket.belongsTo(Task, { foreignKey: 'taskId' });
 };
