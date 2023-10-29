@@ -35,9 +35,7 @@ module.exports.token = async (req, res) => {
 module.exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
-console.log(req.body)
-
-    if (typeof name !== 'string' || name.length > 32 || name.length < 4)
+    if (typeof name !== 'string' || name.length > 64 || name.length < 4)
         return res.status(400).json({ message: 'Invalid name.' });
 
     if (typeof email !== 'string' || !validator.isEmail(email))
@@ -48,9 +46,9 @@ console.log(req.body)
 
     try {
         const hash = await bcrypt.hash(password, 10);
-        const id = uniqid();
-        const user = await seq.models.User.create({ id, name, email, password: hash });
-        return res.json({ id: user.id, name: user.name, email: user.email });
+        const userId = uniqid();
+        const user = await seq.models.User.create({ userId, name, email, password: hash });
+        return res.json({ id: user.userId, name: user.name, email: user.email });
     } catch (e) {
         console.log(e);
         return res.status(500).json({ message: 'Something went wrong.' });

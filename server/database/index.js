@@ -6,8 +6,10 @@ const sequelize = new Sequelize({
 });
 
 const models = [
+    require('./models/achievement'),
+    require('./models/opinion'),
     require('./models/user'),
-    require('./models/task')
+    require('./models/task'),
 ];
 
 for (const model of models)

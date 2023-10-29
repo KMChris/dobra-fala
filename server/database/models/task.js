@@ -2,13 +2,13 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     sequelize.define('Task', {
-        id: {
+        taskId: {
             primaryKey: true,
-            type: DataTypes.STRING(16),
+            type: DataTypes.STRING(18),
             allowNull: false,
         },
         creatorId: {
-            type: DataTypes.STRING(16),
+            type: DataTypes.STRING(18),
             allowNull: false,
         },
         title: {
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         description: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING(8192),
             allowNull: false,
         },
         category: {
@@ -31,14 +31,14 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
              allowNull: false,
         },
-        /*geoX: {
+        geoX: {
             type: DataTypes.FLOAT,
             allowNull: false,
         },
         geoY: {
             type: DataTypes.FLOAT,
             allowNull: false,
-        },*/
+        },
         completedBy: {
             type: DataTypes.STRING(16),
             allowNull: true,

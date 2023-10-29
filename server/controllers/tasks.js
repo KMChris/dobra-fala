@@ -13,7 +13,7 @@ module.exports.search = async (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-    const { title, description, category, level, min/*, geoX, geoY*/ } = req.body;
+    const { title, description, category, level, min, geoX, geoY } = req.body;
 
     if (typeof title !== 'string' || title.length < 6 || title.length > 128)
         return res.status(400).json({ message: 'Invalid title.' });
@@ -30,12 +30,16 @@ module.exports.create = async (req, res) => {
     if (typeof min !== 'number' || min < 0 || min > 3 || min !== Math.floor(min))
         return res.status(400).json({ message: 'Invalid min.' });
 
-    // TODO: add geoX and geoY validation
+    if (typeof geoX !== 'number' || geoX < -180 || geoX > 180)
+        return res.status(400).json({ message: 'Invalid geoX.' });
+
+    if (typeof geoY !== 'number' || geoY < -90 || geoY > 90)
+        return res.status(400).json({ message: 'Invalid geoY.' });
 
     try {
-        const id = uniqid();
+        const taskId = uniqid();
         const creatorId = req.user.id;
-        const task = await seq.models.Task.create({ id, creatorId, title, description, category, level, min/*, geoX, geoY*/ });
+        const task = await seq.models.Task.create({ taskId, creatorId, title, description, category, level, min, geoX, geoY });
         return res.json(task);
     }
     catch (e) {
@@ -45,10 +49,13 @@ module.exports.create = async (req, res) => {
 };
 
 module.exports.read = async (req, res) => {
-    const { id } = req.body;
+    const { taskId } = req.body;
+
+    if (typeof taskId !== 'string' || taskId.length > 18)
+        return res.status(400).json({ message: 'Invalid taskId.' });
 
     try {
-        const task = await seq.models.Task.findOne({ where: { id } });
+        const task = await seq.models.Task.findOne({ where: { taskId } });
         return res.json(task);
     }
     catch (e) {
@@ -58,7 +65,10 @@ module.exports.read = async (req, res) => {
 };
 
 module.exports.update = async (req, res) => {
-    const { title, description, category, level, min/*, geoX, geoY*/ } = req.body;
+    const { taskId, title, description, category, level, min, geoX, geoY } = req.body;
+
+    if (typeof taskId !== 'string' || taskId.length > 18)
+        return res.status(400).json({ message: 'Invalid taskId.' });
 
     if (typeof title !== 'string' || title.length < 6 || title.length > 128)
         return res.status(400).json({ message: 'Invalid title.' });
@@ -75,17 +85,21 @@ module.exports.update = async (req, res) => {
     if (typeof min !== 'number' || min < 0 || min > 3 || min !== Math.floor(min))
         return res.status(400).json({ message: 'Invalid min.' });
 
-    // TODO: add geoX and geoY validation
+    if (typeof geoX !== 'number' || geoX < -180 || geoX > 180)
+        return res.status(400).json({ message: 'Invalid geoX.' });
+
+    if (typeof geoY !== 'number' || geoY < -90 || geoY > 90)
+        return res.status(400).json({ message: 'Invalid geoY.' });
 
     try {
-        const task = await seq.models.Task.findOne({ where: { id } });
+        const task = await seq.models.Task.findOne({ where: { taskId } });
         task.title = title;
         task.description = description;
         task.category = category;
         task.level = level;
         task.min = min;
-        /*task.geoX = geoX;
-        task.geoY = geoY;*/
+        task.geoX = geoX;
+        task.geoY = geoY;
         await task.save();
         return res.json(task);
     }
@@ -98,14 +112,15 @@ module.exports.update = async (req, res) => {
 
 
 module.exports.delete = async (req, res) => {
-    const { id } = req.body;
+    const { taskId } = req.body;
+
+    if (typeof taskId !== 'string' || taskId.length > 18)
+        return res.status(400).json({ message: 'Invalid taskId.' });
 
     try {
-        const task = await seq.models.Task.findOne({ where: { id } });
-        await task.destroy();
-        return res.json({ message: 'Task deleted.' });
-    }
-    catch (e) {
+        const task = await seq.models.Task.destroy({ where: { taskId } });
+        return res.json(task);
+    } catch (e) {
         console.log(e);
         return res.status(500).json({ message: 'Something went wrong.' });
     }
