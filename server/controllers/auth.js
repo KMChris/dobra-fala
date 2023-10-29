@@ -23,7 +23,7 @@ module.exports.token = async (req, res) => {
         if (!match)
             return res.status(400).json({ message: 'Invalid email or password.' });
 
-        const token = jwt.sign({ id: user.id, name: user.name, email: user.email }, 'NALEŚNIKI', { expiresIn: '1d' });
+        const token = jwt.sign({ userId: user.userId, name: user.name, email: user.email }, 'NALEŚNIKI', { expiresIn: '1d' });
 
         return res.json({ token });
     } catch (e) {

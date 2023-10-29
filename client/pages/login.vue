@@ -11,28 +11,29 @@
 
 <script setup lang="ts">
 
-const email = ref('')
-const password = ref('')
+const email = ref('');
+const password = ref('');
 
 async function login() {
   try {
     const response = await fetch('http://localhost:4000/auth/token', {
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${token.value}` },
       body: JSON.stringify({ email: email.value, password: password.value })
     });
     const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
     localStorage.setItem('token', data.token);
-    console.log(data.token);
+    window.alert('Zalogowano pomyślnie');
     window.location.href = '/';
   } catch (error) {
     console.log(error);
+    window.alert(error);
   }
 }
 
+const token = ref('');
+onMounted(() => { token.value = localStorage.getItem('token') });
 </script>
 
 <style scoped>

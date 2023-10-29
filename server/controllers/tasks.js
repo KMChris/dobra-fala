@@ -38,7 +38,8 @@ module.exports.create = async (req, res) => {
 
     try {
         const taskId = uniqid();
-        const creatorId = req.user.id;
+        const creatorId = req.user.userId;
+        console.log(creatorId)
         const task = await seq.models.Task.create({ taskId, creatorId, title, description, category, level, min, geoX, geoY });
         return res.json(task);
     }

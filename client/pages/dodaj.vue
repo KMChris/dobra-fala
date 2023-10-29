@@ -1,7 +1,7 @@
 <template>
   <h1 style="margin-bottom: 10px;">Dodaj ofertę</h1>
   <form>
-    <v-text-field v-model="name" label="Nazwa" required></v-text-field>
+    <v-text-field v-model="title" label="Nazwa" required></v-text-field>
     <v-select v-model="category" :items="kategorie" label="Kategoria" required></v-select>
     <v-slider v-model="level" step="1" max="4" show-ticks="always" tick-size="4" label="Poziom trudności:"></v-slider>
     <v-select v-model="min" :items="oceny" label="Wymagana ocena" value="Brak" required></v-select>
@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { forInStatement } from '@babel/types';
 import { ref } from 'vue'
 
 const kategorie = ref([
@@ -26,35 +25,40 @@ const oceny = ref([
   'Ocena 3',
 ])
 
-const name = ref('')
-const category = ref('')
-const level = ref(0)
-const min = ref('')
-const description = ref('')
-const token = ref('')
+const minMap = new Map([
+  ['Brak', 0],
+  ['Ocena 2', 1],
+  ['Ocena 3', 2],
+]);
+
+const title = ref('');
+const category = ref('');
+const level = ref(0);
+const min = ref('');
+const description = ref('');
 
 async function create() {
   try {
-    //const token = localStorage.getItem('token')
     const response = await fetch('http://localhost:4000/tasks/create', {
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token.value}`
-      },
-      body: JSON.stringify({ title: name.value, category: category.value, level: 2, min: 2, description: description.value })
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${token.value}` },
+      body: JSON.stringify({
+        title: title.value, category: category.value, level: level.value + 1,
+        min: minMap.get(min.value), description: description.value, geoX: 0, geoY: 0
+      })
     });
     const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
+    window.alert('Dodano ofertę');
+    window.location.href = '/';
   } catch (error) {
     console.log(error);
+    window.alert(error);
   }
 }
 
-onMounted(() => {
-  token.value = localStorage.getItem('token')
-}
-)
+const token = ref('');
+onMounted(() => { token.value = localStorage.getItem('token') });
 </script>
 
 <style scoped></style>
