@@ -3,11 +3,11 @@ const axios = require('axios');
 const URL = 'http://localhost:4000';
 
 const users = [
-    { name: 'User Q', email: 'qq@qq.qq', password: 'qqqqqqqq' },
-    { name: 'User W', email: 'ww@ww.ww', password: 'wwwwwwww' },
-    { name: 'User E', email: 'ee@ee.ee', password: 'eeeeeeee' },
-    { name: 'User R', email: 'rr@rr.rr', password: 'rrrrrrrr' },
-    { name: 'User T', email: 'tt@tt.tt', password: 'tttttttt' },
+    { name: 'NobleCode', email: 'qq@qq.qq', password: 'qqqqqqqq' },
+    { name: 'Labelka', email: 'ww@ww.ww', password: 'wwwwwwww' },
+    { name: 'GlobalCode', email: 'ee@ee.ee', password: 'eeeeeeee' },
+    { name: 'Krasnal', email: 'rr@rr.rr', password: 'rrrrrrrr' },
+    { name: 'BestWro', email: 'tt@tt.tt', password: 'tttttttt' },
 ];
 
 
@@ -61,12 +61,12 @@ async function foo() {
 
     const opinions = [
         { title: 'Opinion E', description: 'Opinion Q description', level: 1, toUserId: users[4].data.user.userId },
-        { title: 'Opinion R', description: 'Opinion W description', level: 2, toUserId: users[0].data.user.userId },
+        { title: 'Majsterkowanie', description: 'Błyskawiczne skręcanie stołu', level: 3, toUserId: users[0].data.user.userId },
         { title: 'Opinion T', description: 'Opinion E description', level: 3, toUserId: users[1].data.user.userId },
         { title: 'Opinion Q', description: 'Opinion R description', level: 1, toUserId: users[2].data.user.userId },
         { title: 'Opinion W', description: 'Opinion T description', level: 2, toUserId: users[3].data.user.userId },
         { title: 'Opinion E2', description: 'Opinion Q2 desc', level: 3, toUserId: users[4].data.user.userId },
-        { title: 'Opinion R2', description: 'Opinion W2 desc', level: 1, toUserId: users[0].data.user.userId },
+        { title: 'Opieka nad zwierzęciem', description: 'Polecam!!', level: 2, toUserId: users[0].data.user.userId },
         { title: 'Opinion T2', description: 'Opinion E2 desc', level: 2, toUserId: users[1].data.user.userId },
         { title: 'Opinion Q2', description: 'Opinion R2 desc', level: 3, toUserId: users[2].data.user.userId },
         { title: 'Opinion W2', description: 'Opinion T2 desc', level: 1, toUserId: users[3].data.user.userId },
