@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Znaleziono</h1>
-    <v-card v-for="offer in offers">
+    <h1>Zgubiono</h1>
+    <v-card v-for="(offer, i)  in offers">
       <v-card-title>
         <div style="display: flex;">
           {{ offer.title }}
@@ -10,20 +10,21 @@
       </v-card-title>
       <v-card-text>
         <div class="card">
-          {{ offer.description }}
+          {{ offer.content }}
         </div>
         <div style="display: flex;">
           <v-spacer></v-spacer>
-          <v-btn color="#2e8b57">To moje!</v-btn>
+          <v-btn :disabled="disabled[i]" color="#2e8b57" @click="disabled[i] = true">Znalazłem!</v-btn>
         </div>
       </v-card-text>
     </v-card>
   </div>
+
 </template>
 
 <script setup lang="ts">
 const offers = ref([]);
-
+const disabled = ref([false, false, false, false, false, false, false, false, false, false]);
 const token = ref('');
 onMounted(async () => {
   token.value = localStorage.getItem('token');
@@ -44,8 +45,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.v-card,
-h1 {
+.v-card, h1 {
   margin-bottom: 10px;
 }
 </style>

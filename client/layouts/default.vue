@@ -17,8 +17,7 @@
       color="#2e8b57">
       <v-list v-model:opened="open">
         <v-list-item href="/dodaj" prepend-icon="mdi-plus" title="Dodaj ofertę" height="50px"></v-list-item>
-        <v-list-item href="/znaleziono" prepend-icon="mdi-magnify" title="Znaleziono" height="50px"></v-list-item>
-        <v-list-item href="/zgubiono" prepend-icon="mdi-help" title="Zgubiono" height="50px"></v-list-item>
+        <v-list-item href="/zagubione" prepend-icon="mdi-magnify" title="Zagubione" height="50px"></v-list-item>
         <v-list-group prepend-icon="mdi-paw" title="Opieka" height="50px"></v-list-group>
         <v-list-group value="opieka" @click="open = (open[0] === 'opieka') ? [] : ['opieka']">
           <template v-slot:activator="{ props }">

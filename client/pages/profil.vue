@@ -1,14 +1,16 @@
 <template>
   <div>
-    <div class="flex">
-      <h1 class="name">{{ user?.name }}</h1>
+    <div class="flex profile">
+      <v-text-field v-if="edit" v-model="user.name" label="Imię" style="max-width: 400px;" variant="outlined"></v-text-field>
+      <h1 v-else class="name">{{ user?.name }}</h1>
       <img class="avatar" height="168" src="/profile.png" alt="avatar">
     </div>
     <div class="flex">
       <v-rating v-model="rating" half-increments readonly length="3"></v-rating>
       2.5/3
       <v-spacer></v-spacer>
-      <v-btn prepend-icon="mdi-human-edit" color="#2e8b57">Edytuj profil</v-btn>
+      <v-btn v-if="edit" prepend-icon="mdi-content-save" color="#2e8b57" @click="edit = !edit">Zapisz</v-btn>
+      <v-btn v-else prepend-icon="mdi-human-edit" color="#2e8b57" @click="edit = !edit">Edytuj profil</v-btn>
     </div>
     <p class="opis">Lorem ipsum dolor sit amet.</p>
     <h2>Nagrody</h2>
@@ -44,7 +46,7 @@
 
 <script setup lang="ts">
 const user = ref({});
-
+const edit = ref(false);
 const rating = ref(2.5);
 const comments = ref([
   {
@@ -106,6 +108,10 @@ h2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+}
+
+.profile {
   align-items: flex-end;
 }
 
