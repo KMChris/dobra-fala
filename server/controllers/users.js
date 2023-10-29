@@ -3,8 +3,21 @@ const validator = require('validator');
 
 module.exports.search = async (req, res) => {
     try {
+        const users = await seq.models.User.findAll({ raw: true });
         const tasks = await seq.models.Task.findAll({ raw: true });
-        return res.json(tasks);
+
+        for (let i = 0; i < users.length; i++)
+            users[i].score = 0;
+
+        tasks.forEach(task => {
+            if (task.completedBy == null) return;
+            const user = users.find(user => user.userId === task.completedBy);
+            if (user === undefined) return;
+            user.score += task.level;
+        });
+
+
+        return res.json(users);
     }
     catch (e) {
         console.log(e);
